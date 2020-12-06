@@ -4,7 +4,7 @@
 - [2. 빌드 및 실행하기](#2.-빌드-및-실행하기)
 - [3. 기능 요구사항](#3.-기능-요구사항)
 - [4. 핵심 문제 해결 전략](#4.-핵심-문제-해결-전략)
-- [5. Design & Develop Notes](#5.-Design-&-Develop-Notes)
+- [5. user story & product backlog](#5.-User-story-&-Product-Backlog)
 
 ---
 
