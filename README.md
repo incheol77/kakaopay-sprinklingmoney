@@ -4,7 +4,7 @@
 - [2. 빌드 및 실행하기](#2.-빌드-및-실행하기)
 - [3. 기능 요구사항](#3.-기능-요구사항)
 - [4. 핵심 문제 해결 전략](#4.-핵심-문제-해결-전략)
-- [5. User story & Product backlog](#5.-User-story-&-Product-Backlog)
+- [5. User story & Product backlog](#5.-user-story-&-product-backlog)
 
 ---
 
@@ -121,6 +121,9 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
     - '참여대화방' (user-chatroom) : '대화방'에 참여하고 있는 '사용자'의 관계 정보를 저장 
     - '뿌리기' (splinkemoney) : '머니뿌리기' 관련 정보를 저장
     - '메시지' (messages) : '대화 메시지' 관련 정보를 저장
+
+- SprinklingModey-ERD
+![sprinklingModeyERD](./img/kakaopay-sprinkemoney-ERD.png)
 
 
 
