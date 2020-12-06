@@ -122,8 +122,8 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
     - '뿌리기' (splinkemoney) : '머니뿌리기' 관련 정보를 저장
     - '메시지' (messages) : '대화 메시지' 관련 정보를 저장
 
-- SprinklingModey-ERD
-![sprinklingModeyERD](./img/kakaopay-sprinkemoney-ERD.png)
+- SprinklingMoney-ERD
+![sprinklingMoneyERD](./img/kakaopay-sprinkemoney-ERD.png)
 
 
 
