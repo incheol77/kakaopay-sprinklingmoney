@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class UserTest {
 
     @Test
-    public void getSetUserIdTest() throws Exception {
+    public void testGetSetUserId() throws Exception {
         // given
         User user = new User();
         Long testUserId = 12345678L;
@@ -29,7 +29,7 @@ public class UserTest {
     }
 
     @Test
-    public void getSetLoginIdTest() throws Exception {
+    public void testGetSetLoginId() throws Exception {
         // given
         User user = new User();
         String testLoginId = "abc@emalil.com";
@@ -42,7 +42,7 @@ public class UserTest {
     }
 
     @Test
-    public void getSetUserNickname() throws Exception {
+    public void testGetSetUserNickname() throws Exception {
         // given
         User user = new User();
         String testUserNickname = "건강한 세상, 모두들 힘내세요!";
@@ -55,7 +55,7 @@ public class UserTest {
     }
 
     @Test
-    public void getSetMoneyAmount() throws Exception {
+    public void testGetSetMoneyAmount() throws Exception {
         // given
         User user = new User();
         Long testMoneyAmount = 123456789L;
@@ -68,7 +68,7 @@ public class UserTest {
     }
 
     @Test
-    public void getSetUserChatroom() throws Exception {
+    public void testGetSetUserChatroom() throws Exception {
         // given
         User user = new User();
         List<UserChatroom>  userChatrooms = new ArrayList<>();

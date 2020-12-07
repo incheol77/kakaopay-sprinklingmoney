@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 public class ChatroomTest {
 
     @Test
-    public void getSetChatroomIdTest() throws Exception {
+    public void testGetSetChatroomId() throws Exception {
         // given
         Chatroom chatroom = new Chatroom();
         String testChatroomId = "chatroom-id-123";
@@ -30,7 +30,7 @@ public class ChatroomTest {
     }
 
     @Test
-    public void getSetChatRoomNameTest() throws Exception {
+    public void testGetSetChatRoomName() throws Exception {
         // given
         Chatroom chatroom = new Chatroom();
         String testChatroomName = "참즐거운대화방";
@@ -43,7 +43,7 @@ public class ChatroomTest {
     }
 
     @Test
-    public void getSetUserCountTest() throws Exception {
+    public void testGetSetUserCount() throws Exception {
         // given
         Chatroom chatroom = new Chatroom();
         int testUserCount = 100;
@@ -56,7 +56,7 @@ public class ChatroomTest {
     }
 
     @Test
-    public void getSetUserChatroomsTest() throws Exception {
+    public void testGetSetUserChatrooms() throws Exception {
         // given
         Chatroom chatroom = new Chatroom();
         List<UserChatroom> testUserChatrooms = new ArrayList<>();
