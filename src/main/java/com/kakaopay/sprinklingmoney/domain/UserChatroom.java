@@ -9,6 +9,10 @@ import javax.persistence.*;
 @Table(name = "user_chatroom")
 @Getter @Setter
 class UserChatroom {
+
+    @Id @GeneratedValue
+    private Long userChatroomId;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
