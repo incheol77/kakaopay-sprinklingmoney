@@ -138,8 +138,12 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
 ### Story & Task (Product Backlog)
 #### Domain 구조
 - SM-DMN-S001 : 카카오페이의 사용자는 대화방을 통해서 서비스를 이용할 수 있다.
-    - SM-DMN-T001 : '사용자' 엔티티 구현 & unit test (속성 : userId, loginId, password, userNickname, moneyAmount)
-    - SM-DMN-T002 : '대화방' 엔티티 구현 & unit test (속성 : chatroomId, chatroomName, userCount)
+    - SM-DMN-T001 : '사용자' 엔티티 구현 & unit test 
+        - 식별자 : 숫자 (userId) -> 추후 "X-USER-ID" 라는 HTTP Header로 전달
+        - 속성 : loginId, password, userNickname, moneyAmount
+    - SM-DMN-T002 : '대화방' 엔티티 구현 & unit test 
+        - 식별자 : 문자 (chatroomId) -> 추후 "X-ROOM-ID" 라는 HTTP Header로 전달
+        - 속성 : chatroomName, userCount
     
 - SM-DMN-S002 : 카카오페이 사용자는 복수의 대화방에 참여할 수 있고, 하나의 대화방에는 복수의 대화방에 참여할 수 있다.
     - SM-DMN-T003 : '사용자':'대화방' 의 M:N 관계를 해소하기 위해 관계 엔티티인 '사용자참여대화방' 엔티티 구현 & unit test 
@@ -190,7 +194,7 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
     - SM-API2-T007 : '뿌리기' 요청이 최초 요청 후 10분 경과시 만료시키는 기능 구현 및 unit test (10분 경과시 status를 EXPIRED로 변경)
         - 경과 시간 비교 logic
         - 뿌리기 자신이 매초 간격으로 10분 경과 여부를 체크하여 10분 경과시 status 를 갱신하는 logic 
-    - SM-API2-T008 : 기긴이 만료된 뿌리기에 대한 받기 요청시, 기간만료 exception 메시지 출력 기능 구현 및 unit test 
+    - SM-API2-T008 : 기간이 만료된 뿌리기에 대한 받기 요청시, 기간만료 exception 메시지 출력 기능 구현 및 unit test 
         - 실제 서비스 구현시에는 기간이 만료된 뿌리기 메시지를 클릭/터치할 경우 '기간이 만료된 뿌리기입니다' 등의 별도 에러 메시지 화면으로 전환
     - SM-API2-T009 : 뿌리기를 받을 사용자 모두가 받음 요청을 완료하기 전에 기간이 만료될 경우 남은 잔액을 뿌리기 요청 사용자에게 반환하는 기능 구현 및 unit test
         - 뿌리기 요청 기간 만료시에 뿌린 금액과 받은 금액의 합을 비교하는 logic
