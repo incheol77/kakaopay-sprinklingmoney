@@ -33,6 +33,6 @@ public class Chatroom {
 
     private int userCount;
 
-    @OneToMany(mappedBy = "chatroom")
+    @OneToMany(mappedBy = "chatroom", cascade = CascadeType.ALL)
     private List<UserChatroom> userChatrooms = new ArrayList<>();
 }

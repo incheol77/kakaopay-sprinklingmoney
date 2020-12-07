@@ -13,11 +13,11 @@ public class SprinkleAcceptUser {
     @Column(name = "accept_user_no")
     private Long acceptUserNo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sprinkle_id")
     private SprinkleMoney sprinkleMoney;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

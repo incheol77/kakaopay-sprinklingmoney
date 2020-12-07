@@ -20,6 +20,9 @@ public class User {
     private String userNickname;
     private Long moneyAmount;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserChatroom> userChatrooms = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<SprinkleAcceptUser> sprinkleAcceptUsers = new ArrayList<>();
 }

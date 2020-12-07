@@ -13,7 +13,7 @@ public class Message {
     @Id @GeneratedValue
     private Long messageId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_chatroom_id")
     private UserChatroom userChatroom;
 
