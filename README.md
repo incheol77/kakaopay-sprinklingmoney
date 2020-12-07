@@ -143,16 +143,15 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
 ### Story & Task (Product Backlog)
 #### Domain 구조
 - SM-DMN-S001 : 카카오페이의 사용자는 대화방을 통해서 서비스를 이용할 수 있다.
-    - SM-DMN-T001 : '사용자' 엔티티 구현 & unit test 
-        - 식별자 : 숫자 (userId) -> 추후 "X-USER-ID" 라는 HTTP Header로 전달
-        - 속성 : loginId, password, userNickname, moneyAmount
+        
     - SM-DMN-T002 : '대화방' 엔티티 구현 & unit test 
         - 식별자 : 문자 (chatroomId) -> 추후 "X-ROOM-ID" 라는 HTTP Header로 전달
         - 속성 : chatroomName, userCount
     
 - SM-DMN-S002 : 카카오페이 사용자는 복수의 대화방에 참여할 수 있고, 하나의 대화방에는 복수의 대화방에 참여할 수 있다.
     - SM-DMN-T003 : '사용자':'대화방' 의 M:N 관계를 해소하기 위해 관계 엔티티인 '사용자참여대화방' 엔티티 구현 & unit test 
-                    (속성 : chatroomId, chatroomName, userCount)
+        - 식별자 : 숫자 (userChatroomId)
+        - 속성 : chatroomId, chatroomName, userCount
                     
 - SM-DMN-S003 : 사용자는 대화방내의 사용자들에게 '뿌리기' 서비스를 이용할 수 있으며, 뿌리기 요청 시 대화방에는 뿌리기 메세지가 발송된다.
     - SM-DMN-T004 : '뿌리기' 엔티티 구현 & unit test (속성 : userid, chatroomId, sendDatetime, sendAmount, 
@@ -232,9 +231,14 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
 
 
 
-
 ### Story & Task (Done)
 #### Domain 구조
+- SM-DMN-S001 : 카카오페이의 사용자는 대화방을 통해서 서비스를 이용할 수 있다.
+    - SM-DMN-T001 : '사용자' 엔티티 구현 & unit test 
+        - 식별자 : 숫자 (userId) -> 추후 "X-USER-ID" 라는 HTTP Header로 전달
+        - 속성 : loginId, password, userNickname, moneyAmount
+        - 하기 commit 에서 반영 
+            - https://github.com/incheol77/kakaopay-sprinklingmoney/commit/712e9284f78b7338a8c76fa5b3e2aeb525a18602
 
 #### Service1 : 뿌리기
 
