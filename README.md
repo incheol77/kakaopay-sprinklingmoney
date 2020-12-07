@@ -175,6 +175,8 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
                 acceptTotalAmount, acceptUser[userId, acceptAmount]
     - SM-DMN-T005 : '메시지' 엔티티 구현 & unit test
         - 속성 : userid, chatroomId, sendDatetime, contents 
+    - SM-DMN-T006 : '뿌리기받은사용자' 엔티티 구현 & unit test
+        - 속성 : sprinkleId, acceptUserId, acceptMoneyAmount 
 
 
 #### Service1 : 뿌리기
