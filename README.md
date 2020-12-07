@@ -173,8 +173,6 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
     - SM-DMN-T004 : '뿌리기' 엔티티 구현 & unit test 
         - 속성 : userid, chatroomId, sendDatetime, sendAmount, 
                 acceptTotalAmount, acceptUser[userId, acceptAmount]
-    - SM-DMN-T005 : '메시지' 엔티티 구현 & unit test
-        - 속성 : userid, chatroomId, sendDatetime, contents 
     - SM-DMN-T006 : '뿌리기받은사용자' 엔티티 구현 & unit test
         - 속성 : sprinkleId, acceptUserId, acceptMoneyAmount 
 
@@ -272,6 +270,12 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
         - 속성 : userId, chatroomId, userRole
         - 하기 commit 에서 반영 
             - https://github.com/incheol77/kakaopay-sprinklingmoney/commit/bd233b5d8dc32f818da5695782b24b1b18e62e35
+            
+            
+- SM-DMN-S003 : 사용자는 대화방내의 사용자들에게 '뿌리기' 서비스를 이용할 수 있으며, 뿌리기 요청 시 대화방에는 뿌리기 메세지가 발송된다.
+    - SM-DMN-T005 : '메시지' 엔티티 구현 & unit test
+        - 속성 : userid, chatroomId, sendDatetime, contents 
+            - https://github.com/incheol77/kakaopay-sprinklingmoney/commit/46ac4420a08f211d21f593726332096e50d5dc08
             
 
 #### Service1 : 뿌리기
