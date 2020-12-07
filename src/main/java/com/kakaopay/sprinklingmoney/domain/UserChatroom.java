@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_chatroom")
 @Getter @Setter
-class UserChatroom {
+public class UserChatroom {
 
     @Id @GeneratedValue
     private Long userChatroomId;
@@ -23,4 +23,11 @@ class UserChatroom {
 
     @Enumerated(EnumType.STRING)
     private UserRole userRole;  // 대화방 참여자 역할 [OWNER, PARTICIPANT]
+
+    public UserChatroom() {}
+
+    public UserChatroom(User user, Chatroom chatroom) {
+        this.user = user;
+        this.chatroom = chatroom;
+    }
 }
