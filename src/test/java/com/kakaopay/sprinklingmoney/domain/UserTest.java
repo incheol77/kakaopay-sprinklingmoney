@@ -6,6 +6,9 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -63,4 +66,18 @@ public class UserTest {
         // then
         Assertions.assertThat(testMoneyAmount).isEqualTo(user.getMoneyAmount());
     }
+
+    @Test
+    public void getSetUserChatroom() throws Exception {
+        // given
+        User user = new User();
+        List<UserChatroom>  userChatrooms = new ArrayList<>();
+
+        // when
+        user.setUserChatrooms(userChatrooms);
+
+        // then
+        Assertions.assertThat(userChatrooms).isEqualTo(user.getUserChatrooms());
+    }
+
 }
