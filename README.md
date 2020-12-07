@@ -151,7 +151,7 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
 - SM-DMN-S002 : 카카오페이 사용자는 복수의 대화방에 참여할 수 있고, 하나의 대화방에는 복수의 대화방에 참여할 수 있다.
     - SM-DMN-T003 : '사용자':'대화방' 의 M:N 관계를 해소하기 위해 관계 엔티티인 '사용자참여대화방' 엔티티 구현 & unit test 
         - 식별자 : 숫자 (userChatroomId)
-        - 속성 : chatroomId, chatroomName, userCount
+        - 속성 : userId, chatroomId, userRole
                     
 - SM-DMN-S003 : 사용자는 대화방내의 사용자들에게 '뿌리기' 서비스를 이용할 수 있으며, 뿌리기 요청 시 대화방에는 뿌리기 메세지가 발송된다.
     - SM-DMN-T004 : '뿌리기' 엔티티 구현 & unit test (속성 : userid, chatroomId, sendDatetime, sendAmount, 
