@@ -119,16 +119,43 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
         한번 설정한 '대화방 제목'을 변경하기 어려우므로 (식별자 변경...거대한 고통의 시작...ㅠㅠ) 
         별도의 '대화방명(chatroomName)' 을 두어 자유롭게 대화방명을 변경할 수 있게 한다. 
         (본 과제의 요건에 포함되어 있지는 않으나 매우 일반적인 대화방의 기능이므로 추가함)
-    
+    - '뿌리기받은사용자(SprinkleAcceptUsers)' 를 별도의 엔티티로 분리한 이유 :
+        - 본 과제에서 사용한 database 인 h2 에는 Array 데이터 타입이 존재하므로
+        뿌리기를 받은 사용자 정보를 '뿌리기(SprinkleMoney)' 엔티티의 속성(Array타입)'으로 
+        관리하는 것도 가능하나, 만일 Array 타입을 지원하지 않는 다른 DB (e.g : Mysql)를 사용하는 것으로
+        결정이 되는 상황을 고려한다면 데이터 구조의 변경이 필요하다. 
+        (json 형태로 저장한 후 parsing하여 사용하는 방법 또는 별도 엔티티를 분리하는 방법 등)
+        - 따라서 향후 확장성과 변경에 대한 유연성을 확보하기 위해서 '뿌리기받은사용자' 를 별도의 엔티티로 관리하기로 결정하였다.
+        
 - entity
     - '사용자' (user) : '사용자' 의 일반 정보를 저장. ('머니잔액' 포함)
     - '대화방' (chatroom) : '대화방' 의 일반 정보를 저장. ('뿌리기' 등 메시지 관련 정보는 불포함)
     - '참여대화방' (user-chatroom) : '대화방'에 참여하고 있는 '사용자'의 관계 정보를 저장 
     - '뿌리기' (splinkemoney) : '머니뿌리기' 관련 정보를 저장
     - '메시지' (messages) : '대화 메시지' 관련 정보를 저장
+    - '뿌리기받은사용자' (SprinkleAcceptUsers) : 뿌린 머니를 받은 사용자 정보를 저장
 
-- SprinklingMoney-ERD
+- Data Model (ERD)
+    - 주의 사항 (ERD 를 두가지 버전으로 나누게 된 이유) : 
+    - '참여대화방(UserChatroom)' 엔티티의 경우 '사용자(User)' 와 '대화방(Chatroom)' 의
+    관계를 매핑 하기 위한 (M:N관계 해소) 관계 엔티티 이므로 각각의 식별자 (userId, chatroomId) 를
+    직접 상속받는 '식별 관계 (상위 엔티티의 식별자를 자신의 식별자로 모두 사용 - 복합식별자)' 이어야 한다.
+    만일 식별관계로 상속을 받지 않을 경우 하위의 '뿌리기(SprinkleMoney)', '메시지(Message)' 등의
+    엔티티에서 userId, chatroomId 를 상속받을 수 없기 때문에 자신의 식별자를 상속시키기 위한 목적이 있을 경우에는
+    반드시 '식별관계' 로 상속을 받아야 한다. (데이터 모델링 기본 이론 : 상속을 받는 엔티티는 부모 엔티티의 식별자만을 상속받을 수 있다.)
+    - 그러나 JPA 에서는 엔티티 마다 단일 식별자를 필요로 하므로 이를 해결하기 위해 '참여대화방(UserChatroom)' 에
+    단일식별자인 UserChatroomId 를 두었고 (결과적으로 '사용자', '대화방' 으로 부터 비식별관계로 상속받은 것과 유사한 모델이 됨)
+    이론적으로는 '참여대화방(UserChatroom)' 으로부터 상속을 받은 '뿌리기(SprinkleMoney)' 와 '메시지(Message)' 는
+    식별자를 상속받을 수 없으나 '참여대화방' 의 본질식별자 (userId+chatroomId)를 상속받은 것 처럼 설계를 하였다.
+    - 따라서 '참여대화방(UserChatroom)' 의 식별자 (PK 이므로 unique key로 사용)는 인조식별자인 userChatroomId 이나
+    실질적으로 데이터 1건을 발생시키는 본질 식별자는 userId+chatroomId 이므로 데이터 정합성을 보장하기 위해서
+    반드시 PK 이외에 userId+chatroomID 로 unique key index 를 생성해야 한다.
+    - '뿌리기받은사용자(SprinkleAcceptUsers)'의 경우에도 이와 유사한 내용이 적용되었다.
+    
+    - SprinklingMoney-ERD
 ![sprinklingMoneyERD](./img/kakaopay-sprinkemoney-ERD.png)
+
+
 
 
 
@@ -142,21 +169,17 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
 
 ### Story & Task (Product Backlog)
 #### Domain 구조
-- SM-DMN-S001 : 카카오페이의 사용자는 대화방을 통해서 서비스를 이용할 수 있다.
-        
-    - SM-DMN-T002 : '대화방' 엔티티 구현 & unit test 
-        - 식별자 : 문자 (chatroomId) -> 추후 "X-ROOM-ID" 라는 HTTP Header로 전달
-        - 속성 : chatroomName, userCount
-    
 - SM-DMN-S002 : 카카오페이 사용자는 복수의 대화방에 참여할 수 있고, 하나의 대화방에는 복수의 대화방에 참여할 수 있다.
     - SM-DMN-T003 : '사용자':'대화방' 의 M:N 관계를 해소하기 위해 관계 엔티티인 '사용자참여대화방' 엔티티 구현 & unit test 
         - 식별자 : 숫자 (userChatroomId)
         - 속성 : userId, chatroomId, userRole
                     
 - SM-DMN-S003 : 사용자는 대화방내의 사용자들에게 '뿌리기' 서비스를 이용할 수 있으며, 뿌리기 요청 시 대화방에는 뿌리기 메세지가 발송된다.
-    - SM-DMN-T004 : '뿌리기' 엔티티 구현 & unit test (속성 : userid, chatroomId, sendDatetime, sendAmount, 
-                                                       acceptTotalAmount, acceptUser[userId, acceptAmount])
-    - SM-DMN-T005 : '메시지' 엔티티 구현 & unit test (속성 : userid, chatroomId, sendDatetime, contents) 
+    - SM-DMN-T004 : '뿌리기' 엔티티 구현 & unit test 
+        - 속성 : userid, chatroomId, sendDatetime, sendAmount, 
+                acceptTotalAmount, acceptUser[userId, acceptAmount]
+    - SM-DMN-T005 : '메시지' 엔티티 구현 & unit test
+        - 속성 : userid, chatroomId, sendDatetime, contents 
 
 
 #### Service1 : 뿌리기
@@ -239,6 +262,13 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
         - 속성 : loginId, password, userNickname, moneyAmount
         - 하기 commit 에서 반영 
             - https://github.com/incheol77/kakaopay-sprinklingmoney/commit/712e9284f78b7338a8c76fa5b3e2aeb525a18602
+            
+    - SM-DMN-T002 : '대화방' 엔티티 구현 & unit test 
+        - 식별자 : 문자 (chatroomId) -> 추후 "X-ROOM-ID" 라는 HTTP Header로 전달
+        - 속성 : chatroomName, userCount
+        - 하기 commit 에서 반영 
+            - https://github.com/incheol77/kakaopay-sprinklingmoney/commit/9e597a80d384d925092a3c840d552770d19107dc
+            
 
 #### Service1 : 뿌리기
 
