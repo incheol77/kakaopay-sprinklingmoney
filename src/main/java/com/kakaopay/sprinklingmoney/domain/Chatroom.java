@@ -35,4 +35,10 @@ public class Chatroom {
 
     @OneToMany(mappedBy = "chatroom", cascade = CascadeType.ALL)
     private List<UserChatroom> userChatrooms = new ArrayList<>();
+
+    //===== 연관 관계 편의 메소드 =====//
+    public void addUserChatroom(UserChatroom userChatroom) {
+        userChatrooms.add(userChatroom);
+        userChatroom.setChatroom(this);
+    }
 }

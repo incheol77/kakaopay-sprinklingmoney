@@ -27,11 +27,31 @@ public class UserChatroom {
     private List<Message> messages = new ArrayList<>();
 
     @OneToMany(mappedBy = "userChatroom", cascade = CascadeType.ALL)
-    private List<SprinkleMoney> sprinkles = new ArrayList<>();
+    private List<SprinkleMoney> sprinkleMoneys = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private UserRole userRole;  // 대화방 참여자 역할 [OWNER, PARTICIPANT]
 
+    //===== 연관 관계 편의 메소드 =====//
+    public void setUser(User user) {
+        this.user = user;
+        user.getUserChatrooms().add(this);
+    }
+
+    public void setChatroom(Chatroom chatroom) {
+        this.chatroom = chatroom;
+        chatroom.getUserChatrooms().add(this);
+    }
+
+    public void addSprinkleMoney(SprinkleMoney sprinkleMoney) {
+        sprinkleMoneys.add(sprinkleMoney);
+        sprinkleMoney.setUserChatroom(this);
+    }
+
+    public void addMessages(Message message) {
+        messages.add(message);
+        message.setUserChatroom(this);
+    }
 
     // ===== Constructors ===== //
     public UserChatroom() {}

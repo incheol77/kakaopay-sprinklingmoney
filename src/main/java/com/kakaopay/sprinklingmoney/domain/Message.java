@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -19,6 +20,12 @@ public class Message {
 
     private LocalDateTime sendDateTime;
     private String contents;
+
+    //===== 연관 관계 편의 메소드 =====//
+    public void setUserChatroom(UserChatroom userChatroom) {
+        this.userChatroom = userChatroom;
+        userChatroom.getMessages().add(this);
+    }
 
     /*
      * TODO : If this is necessary, implement these methods.

@@ -1,6 +1,5 @@
 package com.kakaopay.sprinklingmoney.domain;
 
-import com.kakaopay.sprinklingmoney.repository.UserChatroomRepository;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +31,17 @@ public class SprinkleMoney {
 
     @Enumerated(EnumType.STRING)
     private SprinkleStatus sprinkleStatus;
+
+    //===== 연관 관계 편의 메소드 =====//
+    public void setUserChatroom(UserChatroom userChatroom) {
+        this.userChatroom = userChatroom;
+        userChatroom.getSprinkleMoneys().add(this);
+    }
+    public void addSprinkleAcceptUser(SprinkleAcceptUser sprinkleAcceptUser) {
+        sprinkleAcceptUsers.add(sprinkleAcceptUser);
+        sprinkleAcceptUser.setSprinkleMoney(this);
+    }
+
 
     // ===== create method ===== //
     public static SprinkleMoney createSprinkleMoney(UserChatroom userChatroom,

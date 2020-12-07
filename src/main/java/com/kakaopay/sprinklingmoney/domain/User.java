@@ -25,4 +25,15 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<SprinkleAcceptUser> sprinkleAcceptUsers = new ArrayList<>();
+
+    //===== 연관 관계 편의 메소드 =====//
+    public void addUserChatroom(UserChatroom userChatroom) {
+        userChatrooms.add(userChatroom);
+        userChatroom.setUser(this);
+    }
+
+    public void addSprinkleAcceptUser(SprinkleAcceptUser sprinkleAcceptUser) {
+        sprinkleAcceptUsers.add(sprinkleAcceptUser);
+        sprinkleAcceptUser.setUser(this);
+    }
 }
