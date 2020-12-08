@@ -14,7 +14,11 @@ public class MessageRepository {
     private final EntityManager em;
 
     public void save(Message message) {
-        em.persist(message);
+        if (message.getMessageId() == null) {
+            em.persist(message);
+        } else {
+            em.merge(message);
+        }
     }
 
     public Message findOne(Long id) {

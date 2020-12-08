@@ -14,7 +14,11 @@ public class SprinkleMoneyRepository {
     private final EntityManager em;
 
     public void save(SprinkleMoney sprinkleMoney) {
-        em.persist(sprinkleMoney);
+        if (sprinkleMoney.getSprinkleId() == null) {
+            em.persist(sprinkleMoney);
+        } else {
+            em.merge(sprinkleMoney);
+        }
     }
 
     public SprinkleMoney findOne(Long id) {

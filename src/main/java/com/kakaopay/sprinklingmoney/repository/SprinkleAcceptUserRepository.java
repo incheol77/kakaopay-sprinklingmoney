@@ -15,7 +15,11 @@ public class SprinkleAcceptUserRepository {
     private final EntityManager em;
 
     public void save(SprinkleAcceptUser sprinkleAcceptUser) {
-        em.persist(sprinkleAcceptUser);
+        if (sprinkleAcceptUser.getAcceptUserNo() == null) {
+            em.persist(sprinkleAcceptUser);
+        } else {
+            em.merge(sprinkleAcceptUser);
+        }
     }
 
     public SprinkleAcceptUser findOne(Long id) {

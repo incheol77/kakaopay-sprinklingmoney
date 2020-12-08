@@ -14,7 +14,11 @@ public class UserChatroomRepository {
     private final EntityManager em;
 
     public void save(UserChatroom userChatroom) {
-        em.persist(userChatroom);
+        if (userChatroom.getUserChatroomId() == null) {
+            em.persist(userChatroom);
+        } else {
+            em.merge(userChatroom);
+        }
     }
 
     public UserChatroom findOne(Long id) {
