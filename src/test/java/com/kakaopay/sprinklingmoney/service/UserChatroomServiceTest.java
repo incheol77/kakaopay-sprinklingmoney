@@ -60,7 +60,8 @@ public class UserChatroomServiceTest {
         // when
         int userCount = 5;
         long sprinkleAmount = 1000;
-        userChatroomService.requestSprinkleMoney(
+        int randomSize = 3;
+        String token = userChatroomService.requestSprinkleMoney(
                 user.getUserId(),
                 chatroom.getChatroomId(),
                 userChatroom.getUserChatroomId(),
@@ -69,7 +70,8 @@ public class UserChatroomServiceTest {
         );
 
         // then
-        System.out.println(userChatroom.getMessages().get(0));
+//        System.out.println(userChatroom.getMessages().get(0));
         Assertions.assertThat(user.getMoneyAmount()).isEqualTo(initAmount-sprinkleAmount);
+        Assertions.assertThat(token.length()).isEqualTo(randomSize);
     }
 }

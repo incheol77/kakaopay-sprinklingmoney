@@ -17,6 +17,8 @@ public class UserChatroomService {
     private final SprinkleMoneyRepository sprinkleMoneyRepository;
     private final MessageRepository messageRepository;
 
+    int randomSize = 3;
+
     @Transactional
     public Long addUserToChatroom(User user, Chatroom chatroom) {
         // TODO : 중복 사용자-대화방 체크 (with userNickname, chatroomName)
@@ -36,8 +38,18 @@ public class UserChatroomService {
     }
      */
 
+    /**
+     *
+     * @param userId
+     * @param chatroomId
+     * @param userChatroomId
+     * @param userCount
+     * @param moneyAmount
+     * @return token 으로 사용될 3자리 random 문자열 (영문대문자/영문소문자/숫자 조합)
+     * @throws Exception
+     */
     @Transactional
-    public void requestSprinkleMoney(Long userId,
+    public String requestSprinkleMoney(Long userId,
                                      String chatroomId,
                                      Long userChatroomId,
                                      int userCount,
@@ -61,6 +73,8 @@ public class UserChatroomService {
         userRepository.save(user);
         sprinkleMoneyRepository.save(sprinkleMoney);
         messageRepository.save(sprinkleMessage);
+
+        return RandomGenerator.makeRandomString(randomSize);
     }
 
     private String makeMessageContents(int sprinkleUserCount,
