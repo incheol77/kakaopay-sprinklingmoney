@@ -24,10 +24,9 @@ public class SprinkleMoney {
     private List<SprinkleAcceptUser> sprinkleAcceptUsers = new ArrayList<>();
 
     private LocalDateTime sendDateTime;
-
     private int sprinkleUserCount;
-
     private long sprinkleMoneyAmount;
+    private long moneyAmountPerUser;
 
     @Enumerated(EnumType.STRING)
     private SprinkleStatus sprinkleStatus;
@@ -53,9 +52,16 @@ public class SprinkleMoney {
         sprinkleMoney.setUserChatroom(userChatroom);
         sprinkleMoney.setSprinkleUserCount(sprinkleUserCount);
         sprinkleMoney.setSprinkleMoneyAmount(sprinkleMoneyAmount);
+        sprinkleMoney.setMoneyAmountPerUser(
+                calcMoneyAmountPerUser(sprinkleMoneyAmount, (long) sprinkleUserCount)
+        );
         sprinkleMoney.setSprinkleStatus(SprinkleStatus.OPEN);
         sprinkleMoney.setSendDateTime(LocalDateTime.now());
 
         return sprinkleMoney;
+    }
+
+    private static long calcMoneyAmountPerUser(long moneyAmount, long userCount) {
+        return moneyAmount / userCount;
     }
 }
