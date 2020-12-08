@@ -1,14 +1,10 @@
 package com.kakaopay.sprinklingmoney.service;
 
-import com.kakaopay.sprinklingmoney.domain.Chatroom;
-import com.kakaopay.sprinklingmoney.domain.User;
-import com.kakaopay.sprinklingmoney.domain.UserChatroom;
-import com.kakaopay.sprinklingmoney.repository.UserChatroomRepository;
+import com.kakaopay.sprinklingmoney.domain.*;
+import com.kakaopay.sprinklingmoney.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -16,6 +12,10 @@ import java.util.List;
 public class UserChatroomService {
 
     private final UserChatroomRepository userChatroomRepository;
+    private final UserRepository userRepository;
+    private final ChatroomRepository chatroomRepository;
+    private final SprinkleMoneyRepository sprinkleMoneyRepository;
+    private final MessageRepository messageRepository;
 
     @Transactional
     public Long addUserToChatroom(User user, Chatroom chatroom) {
@@ -35,4 +35,40 @@ public class UserChatroomService {
         }
     }
      */
+
+    @Transactional
+    public void requestSprinkleMoney(Long userId,
+                                     String chatroomId,
+                                     Long userChatroomId,
+                                     int userCount,
+                                     long moneyAmount) throws Exception {
+
+        // 1. 뿌리기에 관련된 객체들 초기화
+        User user = userRepository.findOne(userId);
+        UserChatroom userChatroom = userChatroomRepository.findOne(userChatroomId);
+        Chatroom chatroom = chatroomRepository.findOne(chatroomId);
+
+        // 2. 뿌린 사용자의 잔액에서 뿌린 금액만큼 차감
+        user.subtractMoneyAmount(moneyAmount);
+
+        // 3. 뿌리기 객체와 뿌리기 결과 메시지 생성
+        SprinkleMoney sprinkleMoney = userChatroom.createSprinkleMoney(userCount, moneyAmount);
+        Message sprinkleMessage = userChatroom.createMessage(
+                makeMessageContents(userCount, moneyAmount, user.getUserNickname(), chatroom.getChatroomName())
+        );
+
+        // 4. 뿌리기 결과가 반영된 객체 저장
+        userRepository.save(user);
+        sprinkleMoneyRepository.save(sprinkleMoney);
+        messageRepository.save(sprinkleMessage);
+    }
+
+    private String makeMessageContents(int sprinkleUserCount,
+                                       long sprinkleMoneyAmount,
+                                       String userNickname,
+                                       String chatroomName) {
+
+        return "[" + userNickname + "] 님이 " + "대화방 [" + chatroomName + "] 의 ["
+                + sprinkleUserCount + "] 명의 회원님들께 [" + sprinkleMoneyAmount + "] 원을 뿌리셨습니다";
+    }
 }

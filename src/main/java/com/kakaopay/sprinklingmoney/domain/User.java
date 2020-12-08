@@ -19,7 +19,7 @@ public class User {
     private String loginId;
     private String password;
     private String userNickname;
-    private Long moneyAmount;
+    private long moneyAmount;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserChatroom> userChatrooms = new ArrayList<>();
@@ -45,7 +45,7 @@ public class User {
      *
      * @param amount
      */
-    public void addMoneyAmount(Long amount) {
+    public void addMoneyAmount(long amount) {
         this.moneyAmount += amount;
     }
 
@@ -55,8 +55,8 @@ public class User {
      * @param amount
      * @throws Exception
      */
-    public void subtractMoneyAmount(Long amount) throws Exception {
-        Long restMoney = this.moneyAmount - amount;
+    public void subtractMoneyAmount(long amount) throws Exception {
+        long restMoney = this.moneyAmount - amount;
         if (restMoney < 0) {
             throw new NotEnoughMoneyAmountException("빼려는 금액이 잔액보다 큽니다");
         }

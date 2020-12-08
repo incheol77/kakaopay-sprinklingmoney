@@ -1,6 +1,7 @@
 package com.kakaopay.sprinklingmoney.domain;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,4 +60,19 @@ public class UserChatroomTest {
         userChatroom.setUserRole(guest);
         Assertions.assertThat(UserRole.PARTICIPANT).isEqualTo(userChatroom.getUserRole());
     }
+
+    /*
+    @Test
+    public void testCreateSprinkleMoney() throws Exception {
+        // given
+        UserChatroom userChatroom = new UserChatroom();
+        Long sprinkleMoneyId = userChatroom.createSprinkleMoney(10, 2000);
+
+        // when
+        SprinkleMoney sprinkleMoney = userChatroom.findSprinkleMoney(sprinkleMoneyId);
+
+        // then
+        Assertions.assertThat(sprinkleMoneyId).isEqualTo(sprinkleMoney.getSprinkleId());
+    }
+     */
 }

@@ -41,4 +41,15 @@ public class Message {
         }
     }
     */
+
+    // ===== Create method ===== //
+    public static Message createMessage(UserChatroom userChatroom, String contents) {
+        Message message = new Message();
+
+        message.setUserChatroom(userChatroom);
+        message.setContents(contents);
+        message.setSendDateTime(LocalDateTime.now());
+
+        return message;
+    }
 }

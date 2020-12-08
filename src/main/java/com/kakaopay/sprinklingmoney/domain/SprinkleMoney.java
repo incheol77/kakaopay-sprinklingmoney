@@ -27,7 +27,7 @@ public class SprinkleMoney {
 
     private int sprinkleUserCount;
 
-    private int sprinkleMoneyAmount;
+    private long sprinkleMoneyAmount;
 
     @Enumerated(EnumType.STRING)
     private SprinkleStatus sprinkleStatus;
@@ -46,7 +46,7 @@ public class SprinkleMoney {
     // ===== create method ===== //
     public static SprinkleMoney createSprinkleMoney(UserChatroom userChatroom,
                                                     int sprinkleUserCount,
-                                                    int sprinkleMoneyAmount) {
+                                                    long sprinkleMoneyAmount) {
 
         SprinkleMoney sprinkleMoney = new SprinkleMoney();
 
