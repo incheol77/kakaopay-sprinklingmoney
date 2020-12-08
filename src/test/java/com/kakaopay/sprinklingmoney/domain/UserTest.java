@@ -1,5 +1,6 @@
 package com.kakaopay.sprinklingmoney.domain;
 
+import com.kakaopay.sprinklingmoney.exception.NotEnoughMoneyAmountException;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -80,4 +81,51 @@ public class UserTest {
         Assertions.assertThat(userChatrooms).isEqualTo(user.getUserChatrooms());
     }
 
+    @Test
+    public void testAddMoneyAmount() throws Exception {
+        // given
+        User user = new User();
+        Long initAmount= 1000L;
+        user.setMoneyAmount(initAmount);
+
+        // when
+        Long addAmount = 500L;
+        Assertions.assertThat(initAmount).isEqualTo(user.getMoneyAmount());
+        user.addMoneyAmount(addAmount);
+
+        // then
+        Assertions.assertThat(initAmount + addAmount).isEqualTo(user.getMoneyAmount());
+    }
+
+    @Test
+    public void testSubtractMoneyAmount() throws Exception {
+        // given
+        User user = new User();
+        Long initAmount= 1000L;
+        user.setMoneyAmount(initAmount);
+
+        // when
+        Long subtractAmount = 500L;
+        Assertions.assertThat(initAmount).isEqualTo(user.getMoneyAmount());
+        user.subtractMoneyAmount(subtractAmount);
+
+        // then
+        Assertions.assertThat(initAmount - subtractAmount).isEqualTo(user.getMoneyAmount());
+    }
+
+    @Test(expected = NotEnoughMoneyAmountException.class)
+    public void testNotEnoughMoneyAmountException() throws Exception {
+        // given
+        User user = new User();
+        Long initAmount= 1000L;
+        user.setMoneyAmount(initAmount);
+
+        // when
+        Long subtractAmount = 2000L;
+        Assertions.assertThat(initAmount).isEqualTo(user.getMoneyAmount());
+        user.subtractMoneyAmount(subtractAmount);   // 예외 발생해야 함.
+
+        // then
+        fail("예외가 발생해야 한다.");
+    }
 }
