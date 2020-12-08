@@ -179,12 +179,7 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
         
 - SM-API1-S002 : 사용자는 머니 뿌리기를 위해 뿌릴 금액과 뿌릴 인원을 입력할 수 있다.
     - SM-API1-T002 : '뿌리기 API'의 parameter (뿌릴금액, 뿌릴인원) 입력 부분 구현 및 unit test
-    - SM-API1-T003 : 뿌릴금액을 뿌릴인원의 인원수에 맞추어 분배하여 spinkle 엔티티에 저장 (분배 로직은 균등분배로 정함)
-
-- SM-API1-S003 : '뿌리기'를 요청한 사용자 자신의 잔액은 '뿌린금액' 만큼 감소되고 '참여대화방'에 뿌리기 메시지가 발송된다. 
-    - SM-API1-T004 : 뿌리기 요청 사용자의 잔액 감소 기능 구현 및 unit test
-    - SM-API1-T005 : 뿌리기가 요청된 참여 대화방에 뿌리기 내용 (뿌린 사용자, 뿌린 금액, 뿌릴 인원) 에 대한 메시지 저장 기능 구현 및 unit test 
-        - 대화방에 메시지가 실제로 발송되는 기능은 본 과제 범위를 벗어나므로 구현하지 않음
+    - SM-API1-T003 : 뿌릴금액을 뿌릴인원의 인원수에 맞추어 분배하여 sprinkle 엔티티에 저장 (분배 로직은 균등분배로 정함)
 
 - SM-API1-S004 : '뿌리기'를 요청한 사용자는 뿌리기 요청건에 대해 발급된 고유 token을 응답값으로 받는다. 
     - SM-API1-T006 : '뿌리기' 요청건의 결과 처리 구현 및 unit test 
@@ -223,6 +218,7 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
     - SM-API3-T001 : 뿌리기 조회 요청 (GET) 을 처리하기 위한 기능 구현 및 unit test
         - 유효한 사용자 여부 (뿌리기 생성 사용자id=조회 요청 사용자id)를 체크하는 logic
         - 뿌리기 처리 상태를 테이블에서 조회하여 반환해 주는 logic 구현
+        
 - SM-API3-S002 : '뿌리기'를 요청한 사용자는 뿌리기 요청 후 7일 간만 뿌리기 처리 상태를 조회할 수 있다.
     - SM-API3-T002 : 뿌리기 조회 요청에 대한 조회 가능 기간 만료 여부를 체크하기 위한 기능 구현 및 unit test 
         - 뿌리기 조회 요청시 조회 가능 기간 만료 여부 (조회 시점 <= 뿌리기 생성 시점 + 7일)를 확인하는 logic
@@ -283,6 +279,16 @@ API를 호출한 사용자에게 할당하고, 그 금액을 응답값으로 내
             - https://github.com/incheol77/kakaopay-sprinklingmoney/commit/cafec389bc6415d1d921152772127f8ac7bfba14
 
 #### Service1 : 뿌리기
+- SM-API1-S003 : '뿌리기'를 요청한 사용자 자신의 잔액은 '뿌린금액' 만큼 감소되고 '참여대화방'에 뿌리기 메시지가 발송된다. 
+    - SM-API1-T004 : 뿌리기 요청 사용자의 잔액 감소 기능 구현 및 unit test
+        - 하기 commit 에서 반영 
+        - https://github.com/incheol77/kakaopay-sprinklingmoney/commit/22f367d9231c9f6da9d6475a9cf5bb9f0748521d
+        - https://github.com/incheol77/kakaopay-sprinklingmoney/commit/ae720abd767a5d41e554bb8a2600431f401fdf7c
+    
+    - SM-API1-T005 : 뿌리기가 요청된 참여 대화방에 뿌리기 내용 (뿌린 사용자, 뿌린 금액, 뿌릴 인원) 에 대한 메시지 저장 기능 구현 및 unit test 
+        - 대화방에 메시지가 실제로 발송되는 기능은 본 과제 범위를 벗어나므로 구현하지 않음
+        - 하기 commit 에서 반영 
+        - https://github.com/incheol77/kakaopay-sprinklingmoney/commit/ae720abd767a5d41e554bb8a2600431f401fdf7c
 
 #### Service2 : 받기
 
